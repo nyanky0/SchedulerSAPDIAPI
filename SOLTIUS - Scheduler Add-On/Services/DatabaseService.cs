@@ -22,36 +22,36 @@ namespace SOLTIUS_Scheduler_Add_On.Services
             {
                 connection.Open();
                 string query = @"
-                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='TBL_SYNC_HISTORY' and xtype='U')
-                    CREATE TABLE TBL_SYNC_HISTORY (
-                        LogID INT IDENTITY(1,1) PRIMARY KEY,
-                        DocType VARCHAR(50),
-                        DocEntry VARCHAR(50),
-                        CardCode VARCHAR(100),
-                        ItemCode VARCHAR(100),
-                        Quantity INT,
-                        Price DECIMAL(18,2),
-                        WarehouseCode VARCHAR(50),
-                        Status VARCHAR(50),
-                        ErrorSource VARCHAR(100),
-                        ErrorMessage VARCHAR(MAX),
-                        CreatedAt DATETIME
-                    );
+                                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='TBL_SYNC_HISTORY' and xtype='U')
+                                    CREATE TABLE TBL_SYNC_HISTORY (
+                                        LogID INT IDENTITY(1,1) PRIMARY KEY,
+                                        DocType VARCHAR(50),
+                                        DocEntry VARCHAR(50),
+                                        CardCode VARCHAR(100),
+                                        ItemCode VARCHAR(100),
+                                        Quantity DECIMAL(18,2),
+                                        Price DECIMAL(18,2),
+                                        WarehouseCode VARCHAR(50),
+                                        Status VARCHAR(50),
+                                        ErrorSource VARCHAR(100),
+                                        ErrorMessage VARCHAR(MAX),
+                                        CreatedAt DATETIME
+                                    );
 
-                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='TBL_SYNC_ERROR' and xtype='U')
-                    CREATE TABLE TBL_SYNC_ERROR (
-                        ErrorID INT IDENTITY(1,1) PRIMARY KEY,
-                        DocType VARCHAR(50),
-                        DocEntry VARCHAR(50),
-                        CardCode VARCHAR(100),
-                        ItemCode VARCHAR(100),
-                        Quantity INT,
-                        Price DECIMAL(18,2),
-                        WarehouseCode VARCHAR(50),
-                        ErrorMessage VARCHAR(MAX),
-                        IsResolved BIT DEFAULT 0,
-                        CreatedAt DATETIME
-                    );";
+                                    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='TBL_SYNC_ERROR' and xtype='U')
+                                    CREATE TABLE TBL_SYNC_ERROR (
+                                        ErrorID INT IDENTITY(1,1) PRIMARY KEY,
+                                        DocType VARCHAR(50),
+                                        DocEntry VARCHAR(50),
+                                        CardCode VARCHAR(100),
+                                        ItemCode VARCHAR(100),
+                                        Quantity DECIMAL(18,2),
+                                        Price DECIMAL(18,2),
+                                        WarehouseCode VARCHAR(50),
+                                        ErrorMessage VARCHAR(MAX),
+                                        IsResolved BIT DEFAULT 0,
+                                        CreatedAt DATETIME
+                                    );";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -174,7 +174,7 @@ namespace SOLTIUS_Scheduler_Add_On.Services
                                 DocEntry = reader["DocEntry"]?.ToString() ?? "",
                                 CardCode = reader["CardCode"]?.ToString() ?? "",
                                 ItemCode = reader["ItemCode"]?.ToString() ?? "",
-                                Quantity = Convert.IsDBNull(reader["Quantity"]) ? 0 : Convert.ToInt32(reader["Quantity"]),
+                                Quantity = Convert.IsDBNull(reader["Quantity"]) ? 0 : Convert.ToDouble(reader["Quantity"]),
                                 Price = Convert.IsDBNull(reader["Price"]) ? 0.0 : Convert.ToDouble(reader["Price"]),
                                 WarehouseCode = reader["WarehouseCode"]?.ToString() ?? "",
                                 Status = reader["Status"]?.ToString() ?? "",
@@ -402,7 +402,7 @@ namespace SOLTIUS_Scheduler_Add_On.Services
                                 DocEntry = reader["DocEntry"]?.ToString() ?? "",
                                 CardCode = reader["CardCode"]?.ToString() ?? "",
                                 ItemCode = reader["ItemCode"]?.ToString() ?? "",
-                                Quantity = Convert.IsDBNull(reader["Quantity"]) ? 0 : Convert.ToInt32(reader["Quantity"]),
+                                Quantity = Convert.IsDBNull(reader["Quantity"]) ? 0 : Convert.ToDouble(reader["Quantity"]),
                                 Price = Convert.IsDBNull(reader["Price"]) ? 0.0 : Convert.ToDouble(reader["Price"]),
                                 WarehouseCode = reader["WarehouseCode"]?.ToString() ?? "",
                                 ErrorMessage = reader["ErrorMessage"]?.ToString() ?? "",

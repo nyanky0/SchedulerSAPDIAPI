@@ -8,6 +8,14 @@
 
 ## [Unreleased / Baseline]
 
+### 2026-09-04 — Fix: retry logic, quantity desimal, cleanup repo
+- **Scheduler**: Perbaiki retry logic di `SalesOrderSyncRunner` — hapus `GetCurrentRetryCount()` yang selalu return 0 & `GetMaxRetryCount()` hardcoded; sekarang update status dulu lalu cek `IsRetryLimitExceeded` → dead-letter langsung di cycle yang sama.
+- **Scheduler**: `SyncLogModel.Quantity` diubah `int` → `double` (di `Model/Model.cs`, `DatabaseService`, `FormMain`) — quantity desimal tidak ter-truncate lagi.
+- **Scheduler**: Kolom `Quantity` di `TBL_SYNC_HISTORY` & `TBL_SYNC_ERROR` diubah `INT` → `DECIMAL(18,2)` (berlaku untuk tabel baru; tabel lama perlu ALTER manual).
+- **Repo**: `build_verify/` (42MB DLL hasil build) di-ignore & dikeluarkan dari tracking.
+- **Repo**: Hapus baris ignore `/SOLTIUS - Scheduler Add-On/UI/FormMain.cs` di `.gitignore` — FormMain.cs ikut ke-commit.
+- **Docs**: Ditambahkan `README.md` di root.
+
 ### 2026-09-04 — Dokumentasi awal dibuat
 - **Docs**: Dibuat folder `Documentation/` berisi:
   - `README.md` (daftar isi)

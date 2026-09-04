@@ -9,7 +9,7 @@ namespace SOLTIUS_Scheduler_Add_On.Model
         public string DocEntry { get; set; }
         public string CardCode { get; set; }
         public string ItemCode { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
         public double Price { get; set; }
         public string WarehouseCode { get; set; }
         public string Status { get; set; }

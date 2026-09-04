@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Build verification output (DLL salinan hasil build untuk verifikasi)
+build_verify/

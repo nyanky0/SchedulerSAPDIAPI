@@ -63,18 +63,17 @@ namespace SOLTIUS_Scheduler_Add_On.Services
                     {
                         failedCount++;
 
-                        // Check if retry limit reached
-                        int newRetryCount = GetCurrentRetryCount(dbService, order.HeaderId) + 1;
+                        // Catat kegagalan. UpdateSalesOrderStatus(status=2) sekaligus
+                        // menaikkan retrycount di tabel staging.
+                        dbService.UpdateSalesOrderStatus(order.HeaderId, 2, ex.Message);
+
+                        // Setelah retrycount naik, cek apakah sudah tembus batas maksimal.
+                        // Kalau iya, langsung tandai dead-letter di cycle yang sama (bukan nunggu cycle berikutnya).
                         string errMsg = ex.Message;
-                        if (newRetryCount >= GetMaxRetryCount())
+                        if (dbService.IsRetryLimitExceeded(order.HeaderId))
                         {
                             errMsg = "[DEAD-LETTER] " + ex.Message;
-                            dbService.UpdateSalesOrderStatus(order.HeaderId, 2, ex.Message);
                             dbService.MarkAsExceededRetryLimit(order.HeaderId);
-                        }
-                        else
-                        {
-                            dbService.UpdateSalesOrderStatus(order.HeaderId, 2, ex.Message);
                         }
 
                         LogSync(dbService, order, "Failed", null, errMsg);
@@ -83,19 +82,6 @@ namespace SOLTIUS_Scheduler_Add_On.Services
             }
 
             return failedCount;
-        }
-
-        private static int GetCurrentRetryCount(DatabaseService dbService, long headerId)
-        {
-            // Use IsRetryLimitExceeded as proxy; actual count comes from DB
-            // For simplicity, rely on the existing retrycount field
-            return 0; // The DB already tracks retrycount, used in MarkAsExceededRetryLimit
-        }
-
-        private static int GetMaxRetryCount()
-        {
-            // Default: 5. Can be changed here or read from config.
-            return 5;
         }
 
         /// <summary>
@@ -111,7 +97,7 @@ namespace SOLTIUS_Scheduler_Add_On.Services
                     DocEntry = docEntry ?? "",
                     CardCode = order.CardCode ?? "",
                     ItemCode = order.Lines.Count > 0 ? order.Lines[0].ItemCode : "",
-                    Quantity = order.Lines.Count > 0 ? (int)order.Lines[0].Quantity : 0,
+                    Quantity = order.Lines.Count > 0 ? (double)order.Lines[0].Quantity : 0,
                     Price = order.Lines.Count > 0 ? (double)order.Lines[0].Price : 0,
                     WarehouseCode = order.Lines.Count > 0 ? order.Lines[0].Warehouse : "",
                     Status = status,

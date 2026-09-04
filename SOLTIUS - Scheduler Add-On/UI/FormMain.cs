@@ -351,7 +351,7 @@ namespace SOLTIUS_Scheduler_Add_On.UI
                     DocEntry = docEntry ?? "",
                     CardCode = order.CardCode,
                     ItemCode = order.Lines.Count > 0 ? order.Lines[0].ItemCode : "",
-                    Quantity = order.Lines.Count > 0 ? (int)order.Lines[0].Quantity : 0,
+                    Quantity = order.Lines.Count > 0 ? (double)order.Lines[0].Quantity : 0,
                     Price = order.Lines.Count > 0 ? (double)order.Lines[0].Price : 0,
                     WarehouseCode = order.Lines.Count > 0 ? order.Lines[0].Warehouse : "",
                     Status = status,
