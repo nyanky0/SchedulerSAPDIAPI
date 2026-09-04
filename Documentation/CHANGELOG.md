@@ -8,6 +8,12 @@
 
 ## [Unreleased / Baseline]
 
+### 2026-09-04 — Security: scrub kredensial dari repo public
+- **Web API**: `appsettings.json` — kredensial DB asli diganti placeholder env var (`${STAGING_DB_SERVER}`, `${STAGING_DB_USER}`, `${LOG_DB_*}`) supaya aman di repo public.
+- **Web API**: `Configuration/Config.xml` & root `Configuration/Config.xml` — isi kredensial dikosongkan (diisi otomatis via `POST /api/ProfileSync` dari Scheduler).
+- **Docs**: `01_KondisiSaatIni.md` — hapus contoh string password plaintext dari teks.
+- ⚠️ **PENTING**: kredensial lama (sudah pernah ke-push ke repo public) harus dianggap bocor → ganti password DB & rotate credential.
+
 ### 2026-09-04 — Fix: retry logic, quantity desimal, cleanup repo
 - **Scheduler**: Perbaiki retry logic di `SalesOrderSyncRunner` — hapus `GetCurrentRetryCount()` yang selalu return 0 & `GetMaxRetryCount()` hardcoded; sekarang update status dulu lalu cek `IsRetryLimitExceeded` → dead-letter langsung di cycle yang sama.
 - **Scheduler**: `SyncLogModel.Quantity` diubah `int` → `double` (di `Model/Model.cs`, `DatabaseService`, `FormMain`) — quantity desimal tidak ter-truncate lagi.

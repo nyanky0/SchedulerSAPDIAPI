@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration>
-  <ExternalDatabase>
-    <ExternalDBType>SQLServer</ExternalDBType>
-    <ExternalDBServer>MUMARI</ExternalDBServer>
-    <ExternalDBPort>1433</ExternalDBPort>
-    <ExternalDBName>SBODemoAU123</ExternalDBName>
-    <ExternalDBUser>sa</ExternalDBUser>
-    <ExternalDBPass>REDACTED</ExternalDBPass>
-  </ExternalDatabase>
+    <ExternalDatabase>
+    	<ExternalDBType></ExternalDBType>
+   	    <ExternalDBServer></ExternalDBServer>
+    	<ExternalDBPort>0</ExternalDBPort>
+    	<ExternalDBName></ExternalDBName>
+    	<ExternalDBUser></ExternalDBUser>
+    	<ExternalDBPass></ExternalDBPass>
+    </ExternalDatabase>
 </Configuration>

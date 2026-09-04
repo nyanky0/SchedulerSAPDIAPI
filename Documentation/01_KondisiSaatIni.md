@@ -224,7 +224,7 @@ Berikut kekurangan yang acuu temukan dari baca code (bukan cuma asumsi) — berg
 ### 🔴 Keamanan (PRIORITAS TINGGI)
 1. **Refresh token store in-memory** — hilang saat Web API restart; semua refresh token jadi invalid. Pertimbangkan persistent store (SQL/Redis).
 2. **ProfileSync dikirim tanpa HTTPS & tanpa auth di sisi Scheduler** — kredensial DB (user/password staging) dikirim plaintext kalau URL `http://`. Wajib HTTPS di produksi.
-3. **Password DB & kredensial di `appsettings.json` / `Config.xml` ter-commit** — contoh `REDACTED`/`REDACTED` di file (plaintext). Pindahkan ke env var / secret store.
+3. **Password DB & kredensial di `appsettings.json` / `Config.xml` ter-commit** — sebelumnya ada contoh kredensial plaintext di file (sudah diganti placeholder env var `${...}` agar aman di-public repo). Pindahkan ke env var / secret store.
 4. **Kunci AES hardcoded** (`"SOMETHING DEAD INSIDE"`) di `Encryption.cs` — bukan keamanan sungguhan; hanya obfuscation.
 
 ### 🟡 Ketahanan / Keandalan
