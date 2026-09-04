@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ExternalDatabase>
+    	<ExternalDBType>MySQL</ExternalDBType>
+   	    <ExternalDBServer>REDACTED</ExternalDBServer>
+    	<ExternalDBPort>0</ExternalDBPort>
+    	<ExternalDBName>test</ExternalDBName>
+    	<ExternalDBUser>REDACTED</ExternalDBUser>
+    	<ExternalDBPass>REDACTED</ExternalDBPass>
+    </ExternalDatabase>
+</Configuration>
