@@ -8,6 +8,9 @@
 
 ## [Unreleased / Baseline]
 
+### 2026-09-04 — UX: tekan Enter di field password = Login
+- **Scheduler**: `FormLogin` — tambah handler `txtPassword_KeyDown`; tekan Enter di field password memicu `btnLogin.PerformClick()` (sama seperti klik tombol Sign In). `e.SuppressKeyPress` mencegah bunyi "ding" bawaan Windows.
+
 ### 2026-09-04 — Security: scrub kredensial dari repo public
 - **Web API**: `appsettings.json` — kredensial DB asli diganti placeholder env var (`${STAGING_DB_SERVER}`, `${STAGING_DB_USER}`, `${LOG_DB_*}`) supaya aman di repo public.
 - **Web API**: `Configuration/Config.xml` & root `Configuration/Config.xml` — isi kredensial dikosongkan (diisi otomatis via `POST /api/ProfileSync` dari Scheduler).

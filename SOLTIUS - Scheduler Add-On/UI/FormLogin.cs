@@ -9,12 +9,24 @@ namespace SOLTIUS_Scheduler_Add_On.UI
     public partial class FormLogin : Form
     {
         public FormLogin()
-        {
-            InitializeComponent();
-            // Menghubungkan event klik
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            this.button1.Click += new System.EventHandler(this.btnReset_Click);
-        }
+                {
+                    InitializeComponent();
+                    // Menghubungkan event klik
+                    this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+                    this.button1.Click += new System.EventHandler(this.btnReset_Click);
+
+                    // Tekan Enter di field password = login (sama seperti klik tombol login)
+                    this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
+                }
+
+                private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        e.SuppressKeyPress = true; // cegah bunyi "ding" bawaan
+                        btnLogin.PerformClick();
+                    }
+                }
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
